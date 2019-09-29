@@ -5,7 +5,7 @@ So today I present to you a ported/converted copy of @Darklandz DRdoors! (Thank 
 
 FEATURES:
 
-Ability to lock PD doors (and others if you add them) :key:
+- Ability to lock PD doors (and others if you add them) :key:
 
 - Only police can unlock and lock these doors :policeman:
 
