@@ -56,10 +56,18 @@ Citizen.CreateThread(function()
         end
 
         for i = 1, #doorList do
+		
             local playerCoords = GetEntityCoords( GetPlayerPed(-1) )		
-            local playerDistance = GetDistanceBetweenCoords(playerCoords.x, playerCoords.y, playerCoords.z, doorList[i]["x"], doorList[i]["y"], doorList[i]["z"], true)
+            local playerDistance = GetDistanceBetweenCoords(playerCoords.x, playerCoords.y, playerCoords.z, doorList[i]["x"], doorList[i]["y"], doorList[i]["z"], true)		
+			
+			-- Distance Checking!!!
+			local maxDistance, displayText = 0, 0, ('')
+			
+			if doorList[i]["distance"] then
+				maxDistance = doorList[i]["distance"]
+			end		
 
-            if(playerDistance < 1) then
+            if playerDistance < maxDistance then
                 if doorList[i]["locked"] == true then
                     DrawText3d(doorList[i]["txtX"], doorList[i]["txtY"], doorList[i]["txtZ"], "[E] to unlock")
                 else
@@ -89,36 +97,39 @@ end)
 
 doorList = {
     -- Mission Row To locker room & roof
-    [1] = { ["objName"] = "v_ilev_ph_gendoor004", ["x"]= 449.698, ["y"]= -986.469,["z"]= 30.689,["locked"]= true,["txtX"]=450.104,["txtY"]=-986.388,["txtZ"]=31.739},
+    [1] = { ["objName"] = "v_ilev_ph_gendoor004", ["x"]= 449.698, ["y"]= -986.469,["z"]= 30.689,["locked"]= true,["distance"]= 1,["txtX"]=450.104,["txtY"]=-986.388,["txtZ"]=31.739},
     -- Mission Row Armory
-    [2] = { ["objName"] = "v_ilev_arm_secdoor", ["x"]= 452.618, ["y"]= -982.702,["z"]= 30.689,["locked"]= true,["txtX"]=453.079,["txtY"]=-982.600,["txtZ"]=31.739},
+    [2] = { ["objName"] = "v_ilev_arm_secdoor", ["x"]= 452.618, ["y"]= -982.702,["z"]= 30.689,["locked"]= true,["distance"]= 1,["txtX"]=453.079,["txtY"]=-982.600,["txtZ"]=31.739},
     -- Mission Row Captain Office
-    [3] = { ["objName"] = "v_ilev_ph_gendoor002", ["x"]= 447.238, ["y"]= -980.630,["z"]= 30.689,["locked"]= true,["txtX"]=447.200,["txtY"]=-980.010,["txtZ"]=31.739},
+    [3] = { ["objName"] = "v_ilev_ph_gendoor002", ["x"]= 447.238, ["y"]= -980.630,["z"]= 30.689,["locked"]= true,["distance"]= 1,["txtX"]=447.200,["txtY"]=-980.010,["txtZ"]=31.739},
     -- Mission Row To downstairs right
-    [4] = { ["objName"] = "v_ilev_ph_gendoor005", ["x"]= 443.97, ["y"]= -989.033,["z"]= 30.689,["locked"]= true,["txtX"]=444.020,["txtY"]=-989.445,["txtZ"]=31.739},
+    [4] = { ["objName"] = "v_ilev_ph_gendoor005", ["x"]= 443.97, ["y"]= -989.033,["z"]= 30.689,["locked"]= true,["distance"]= 1,["txtX"]=444.020,["txtY"]=-989.445,["txtZ"]=31.739},
     -- Mission Row To downstairs left
-    [5] = { ["objName"] = "v_ilev_ph_gendoor005", ["x"]= 445.37, ["y"]= -988.705,["z"]= 30.689,["locked"]= true,["txtX"]=445.350,["txtY"]=-989.445,["txtZ"]=31.739},
+    [5] = { ["objName"] = "v_ilev_ph_gendoor005", ["x"]= 445.37, ["y"]= -988.705,["z"]= 30.689,["locked"]= true,["distance"]= 1,["txtX"]=445.350,["txtY"]=-989.445,["txtZ"]=31.739},
     -- Mission Row Main cells
-    [6] = { ["objName"] = "v_ilev_ph_cellgate", ["x"]= 464.0, ["y"]= -992.265,["z"]= 24.9149,["locked"]= true,["txtX"]=463.465,["txtY"]=-992.664,["txtZ"]=25.064},
+    [6] = { ["objName"] = "v_ilev_ph_cellgate", ["x"]= 464.0, ["y"]= -992.265,["z"]= 24.9149,["locked"]= true,["distance"]= 1,["txtX"]=463.465,["txtY"]=-992.664,["txtZ"]=25.064},
     -- Mission Row Cell 1
-    [7] = { ["objName"] = "v_ilev_ph_cellgate", ["x"]= 462.381, ["y"]= -993.651,["z"]= 24.914,["locked"]= true,["txtX"]=461.806,["txtY"]=-993.308,["txtZ"]=25.064},
+    [7] = { ["objName"] = "v_ilev_ph_cellgate", ["x"]= 462.381, ["y"]= -993.651,["z"]= 24.914,["locked"]= true,["distance"]= 1,["txtX"]=461.806,["txtY"]=-993.308,["txtZ"]=25.064},
     -- Mission Row Cell 2
-    [8] = { ["objName"] = "v_ilev_ph_cellgate", ["x"]= 462.331, ["y"]= -998.152,["z"]= 24.914,["locked"]= true,["txtX"]=461.806,["txtY"]=-998.800,["txtZ"]=25.064},
+    [8] = { ["objName"] = "v_ilev_ph_cellgate", ["x"]= 462.331, ["y"]= -998.152,["z"]= 24.914,["locked"]= true,["distance"]= 1,["txtX"]=461.806,["txtY"]=-998.800,["txtZ"]=25.064},
     -- Mission Row Cell 3
-    [9] = { ["objName"] = "v_ilev_ph_cellgate", ["x"]= 462.704, ["y"]= -1001.92,["z"]= 24.914,["locked"]= true,["txtX"]=461.806,["txtY"]=-1002.450,["txtZ"]=25.064},
-    -- Mission Row Backdoor in
-    [10] = { ["objName"] = "v_ilev_gtdoor", ["x"]= 464.126, ["y"]= -1002.78,["z"]= 24.9149,["locked"]= true,["txtX"]=464.100,["txtY"]=-1003.538,["txtZ"]=26.064},
-    -- Mission Row Backdoor out
-    [11] = { ["objName"] = "v_ilev_gtdoor", ["x"]= 464.18, ["y"]= -1004.31,["z"]= 24.9152,["locked"]= true,["txtX"]=464.100,["txtY"]=-1003.538,["txtZ"]=26.064},
-    -- Mission Row Rooftop In
-    --[12] = { ["objName"] = "v_ilev_gtdoor02", ["x"]= 465.467, ["y"]= -983.446,["z"]= 43.6918,["locked"]= true,["txtX"]=464.361,["txtY"]=-984.050,["txtZ"]=44.834},
-    -- Mission Row Rooftop Out
-    --[13] = { ["objName"] = "v_ilev_gtdoor02", ["x"]= 462.979, ["y"]= -984.163,["z"]= 43.6919,["locked"]= true,["txtX"]=464.361,["txtY"]=-984.050,["txtZ"]=44.834},
+    [9] = { ["objName"] = "v_ilev_ph_cellgate", ["x"]= 462.704, ["y"]= -1001.92,["z"]= 24.914,["locked"]= true,["distance"]= 1,["txtX"]=461.806,["txtY"]=-1002.450,["txtZ"]=25.064},
+    -- Mission Row Cells Backdoor
+    [10] = { ["objName"] = "v_ilev_gtdoor", ["x"]= 464.126, ["y"]= -1002.78,["z"]= 24.9149,["locked"]= true,["distance"]= 2,["txtX"]=464.100,["txtY"]=-1003.538,["txtZ"]=26.064},
+    -- Mission Row Backdoor out NOT NEEDED WITH DISTANCE CHECKING. as you can set the distance higher per door
+    --[11] = { ["objName"] = "v_ilev_gtdoor", ["x"]= 464.18, ["y"]= -1004.31,["z"]= 24.9152,["locked"]= true,["distance"]= 5,["txtX"]=464.100,["txtY"]=-1003.538,["txtZ"]=26.064},
+    -- Mission Row Rooftop
+    [11] = { ["objName"] = "v_ilev_gtdoor02", ["x"]= 465.467, ["y"]= -983.446,["z"]= 43.6918,["locked"]= true,["distance"]= 2,["txtX"]=464.361,["txtY"]=-984.050,["txtZ"]=44.834},
+    -- Mission Row Rooftop Out NOT NEEDED WITH DISTANCE CHECKING. as you can set the distance higher per door
+    --[12] = { ["objName"] = "v_ilev_gtdoor02", ["x"]= 462.979, ["y"]= -984.163,["z"]= 43.6919,["locked"]= true,["txtX"]=464.361,["txtY"]=-984.050,["txtZ"]=44.834},
     -- rear main doors
-    [12] = { ["objName"] = "v_ilev_rc_door2", ["x"]= 467.3716, ["y"]= -1014.452,["z"]= 26.5362,["locked"]= true,["txtX"]=468.09,["txtY"]=-1014.452,["txtZ"]=27.1362},
+    [12] = { ["objName"] = "v_ilev_rc_door2",["x"]= 467.3716, ["y"]= -1014.452,["z"]= 26.5362,["locked"]= true,["distance"]= 2,["txtX"]=468.09,["txtY"]=-1014.452,["txtZ"]=27.1362},
     -- rear main doors
-	[13] = { ["objName"] = "v_ilev_rc_door2", ["x"]= 469.9679, ["y"]= -1014.452,["z"]= 26.5362,["locked"]= true,["txtX"]=469.35,["txtY"]=-1014.452,["txtZ"]=27.1362},
-   
+    [13] = { ["objName"] = "v_ilev_rc_door2", ["x"]= 469.9679, ["y"]= -1014.452,["z"]= 26.5362,["locked"]= true,["distance"]= 2,["txtX"]=469.35,["txtY"]=-1014.452,["txtZ"]=27.1362},
+	-- Back Gate of LSPD
+    [14] = { ["objName"] = "hei_prop_station_gate", ["x"]= 488.80, ["y"]= -1017.20, ["z"]= 27.10,["locked"]= true,["distance"]= 10,["txtX"]=488.35,["txtY"]=-1017.452,["txtZ"]=27.1362},
+	-- Front Parking Lot Gate from HumanTree92's LSPD YMAP
+    [15] = { ["objName"] = "prop_gate_airport_01", ["x"]= 415.85, ["y"]= -1025.08, ["z"]= 28.15,["locked"]= true,["distance"]= 15,["txtX"]=415.85,["txtY"]=-1021.452,["txtZ"]=30.1362},
 }
 
 function DrawText3d(x,y,z, text)
